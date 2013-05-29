@@ -119,9 +119,8 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib');
-  grunt.loadNpmTasks('grunt-jslint');
 
   // Default task.
-  grunt.registerTask('default', ['jslint', 'qunit', 'concat', 'uglify', 'cssmin', 'yuidoc']);
+  grunt.registerTask('default', ['concat', 'uglify', 'cssmin', 'yuidoc']);
 
 };
