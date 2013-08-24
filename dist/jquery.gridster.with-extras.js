@@ -1300,7 +1300,7 @@
         ) {
             /*if(!$el.hasClass('.disp_ad')){
                 $el.remove();
-                return false;   
+                return false;
             }*/
             wgd = this.next_position(wgd.size_x, wgd.size_y);
             wgd.el = $el;
@@ -1692,11 +1692,20 @@
         var placeholder_cells = this.cells_occupied_by_placeholder;
         var $gr = this;
 
-        
+
         //Queue Swaps
         $overlapped_widgets.each($.proxy(function(i, w){
             var $w = $(w);
             var wgd = $w.coords().grid;
+
+            // Ensure all values are in integer format
+            wgd.col = parseInt(wgd.col);
+            wgd.row = parseInt(wgd.row);
+            wgd.size_x = parseInt(wgd.size_x);
+            wgd.size_y = parseInt(wgd.size_y);
+            player_size_x = parseInt(player_size_x);
+            player_size_y = parseInt(player_size_y);
+
             var outside_col = placeholder_cells.cols[0]+player_size_x-1;
             var outside_row = placeholder_cells.rows[0]+player_size_y-1;
             if ($w.hasClass($gr.options.static_class)){
@@ -1821,7 +1830,7 @@
                 }
             }
         }
-        
+
         return occupied;
     }
 
@@ -1901,10 +1910,10 @@
 
                     }
                 }
-                    
+
             }
         }
-    
+
         return queued
     }
 
@@ -1914,7 +1923,7 @@
 
         if ((key in this.w_queue)){
             if (this.w_queue[key] == "full"){
-               queued = true; 
+               queued = true;
             } else {
                 $tw = this.w_queue[key];
                 tgd = $tw.coords().grid;
@@ -1928,7 +1937,7 @@
                     queued = true;
                 }
             }
-        } 
+        }
 
         return queued;
     }
@@ -2312,7 +2321,7 @@
             });
 
         // Prevents widgets go out of the grid
-        var right_col = (col + phgd.size_x - 1);
+        var right_col = (col + parseInt(phgd.size_x) - 1);
         if (right_col > this.cols) {
             col = col - (right_col - col);
         }
@@ -2342,7 +2351,7 @@
                 if (can_go_widget_up) {
                     this.move_widget_to($w, can_go_widget_up);
                 }
-                
+
             }, this));
         }
 
