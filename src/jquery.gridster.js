@@ -2684,6 +2684,17 @@
 
 
     /**
+    * Remove the style tag with the associated id from the head of the document
+    *
+    * @method  remove_style_tag
+    * @return {Object} Returns the instance of the Gridster class.
+    */
+    fn.remove_style_tag = function() {
+        $('#' + this.options.style_tag_id_prefix + this.instanceId).remove();
+    };
+
+
+    /**
     * Generates a faux grid to collide with it when a widget is dragged and
     * detect row or column that we want to go.
     *
@@ -2870,6 +2881,30 @@
         }
 
         return this.generate_faux_grid(this.rows, this.cols);
+    };
+
+    /**
+     * Destroy this gridster by removing any sign of its presence, making it easy to avoid memory leaks
+     *
+     * @method destroy
+     * @return {undefined}
+     */
+    fn.destroy = function(removeDOM){
+        if(this.drag_api){
+            this.drag_api.destroy();
+            delete this.drag_api;
+        }
+
+        this.remove_style_tag();
+
+        // lastly, remove gridster element
+        // this will additionally cause any data associated to this element to be removed, including this
+        // very gridster instance
+        if(typeof removeDOM === 'undefined' || removeDOM === true)
+            this.$el.remove();
+        else {
+            this.$el.removeData('gridster');
+        }
     };
 
 
