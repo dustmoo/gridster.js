@@ -332,7 +332,7 @@
         this.disable();
 
         this.$container.off('selectstart', this.proxied_on_select_start);
-        this.$container.off(pointer_events.start, this.proxied_drag_handler);
+        this.$container.off(pointer_events.start, this.options.items, this.proxied_drag_handler);
         this.$body.off(pointer_events.end, this.proxied_pointer_events_end);
         this.$body.off(pointer_events.move, this.on_pointer_events_move);
         $(window).unbind('resize', this.on_window_resize);
